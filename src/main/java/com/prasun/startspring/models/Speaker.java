@@ -1,5 +1,7 @@
 package com.prasun.startspring.models;
 
+import org.hibernate.annotations.Type;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -12,21 +14,17 @@ public class Speaker {
     private String last_name;
     private String title;
     private String company;
+    private String speaker_bio;
 
-    public List<Session> getSessions() {
-        return sessions;
-    }
+    @Lob // Large Object
+    @Type(type = "org.hibernate.type.BinaryType")
+    private byte[] speaker_photo;
 
-    public void setSessions(List<Session> sessions) {
-        this.sessions = sessions;
-    }
 
     @ManyToMany(mappedBy = "speakers")
     private List<Session> sessions;
     public Speaker() {
     }
-
-    private String speaker_bio;
 
     public long getSpeaker_id() {
         return speaker_id;
@@ -74,5 +72,21 @@ public class Speaker {
 
     public void setSpeaker_bio(String speaker_bio) {
         this.speaker_bio = speaker_bio;
+    }
+
+    public List<Session> getSessions() {
+        return sessions;
+    }
+
+    public void setSessions(List<Session> sessions) {
+        this.sessions = sessions;
+    }
+
+    public byte[] getSpeaker_photo() {
+        return speaker_photo;
+    }
+
+    public void setSpeaker_photo(byte[] speaker_photo) {
+        this.speaker_photo = speaker_photo;
     }
 }
